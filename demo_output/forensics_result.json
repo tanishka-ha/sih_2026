@@ -1,0 +1,252 @@
+{
+  "tampering_detected": true,
+  "bounding_boxes": [
+    [
+      93,
+      56,
+      444,
+      52
+    ],
+    [
+      92,
+      419,
+      434,
+      42
+    ],
+    [
+      92,
+      156,
+      388,
+      32
+    ],
+    [
+      92,
+      508,
+      320,
+      64
+    ],
+    [
+      92,
+      371,
+      448,
+      41
+    ],
+    [
+      93,
+      272,
+      423,
+      37
+    ],
+    [
+      92,
+      331,
+      416,
+      42
+    ],
+    [
+      92,
+      620,
+      280,
+      40
+    ],
+    [
+      92,
+      580,
+      192,
+      34
+    ],
+    [
+      572,
+      404,
+      35,
+      39
+    ],
+    [
+      892,
+      404,
+      24,
+      32
+    ],
+    [
+      540,
+      60,
+      16,
+      24
+    ],
+    [
+      525,
+      92,
+      15,
+      16
+    ],
+    [
+      637,
+      1218,
+      19,
+      15
+    ]
+  ],
+  "severity": "high",
+  "confidence": 0.2764,
+  "exif_flags": [],
+  "ela_regions": [
+    {
+      "bounding_box": {
+        "x": 93,
+        "y": 56,
+        "w": 444,
+        "h": 52
+      },
+      "mean_error": 18.39,
+      "area": 18497
+    },
+    {
+      "bounding_box": {
+        "x": 92,
+        "y": 419,
+        "w": 434,
+        "h": 42
+      },
+      "mean_error": 20.18,
+      "area": 11704
+    },
+    {
+      "bounding_box": {
+        "x": 92,
+        "y": 156,
+        "w": 388,
+        "h": 32
+      },
+      "mean_error": 25.11,
+      "area": 11518
+    },
+    {
+      "bounding_box": {
+        "x": 92,
+        "y": 508,
+        "w": 320,
+        "h": 64
+      },
+      "mean_error": 17.99,
+      "area": 10764
+    },
+    {
+      "bounding_box": {
+        "x": 92,
+        "y": 371,
+        "w": 448,
+        "h": 41
+      },
+      "mean_error": 17.6,
+      "area": 10676
+    },
+    {
+      "bounding_box": {
+        "x": 93,
+        "y": 272,
+        "w": 423,
+        "h": 37
+      },
+      "mean_error": 20.89,
+      "area": 10089
+    },
+    {
+      "bounding_box": {
+        "x": 92,
+        "y": 331,
+        "w": 416,
+        "h": 42
+      },
+      "mean_error": 19.69,
+      "area": 9890
+    },
+    {
+      "bounding_box": {
+        "x": 92,
+        "y": 620,
+        "w": 280,
+        "h": 40
+      },
+      "mean_error": 20.33,
+      "area": 7580
+    },
+    {
+      "bounding_box": {
+        "x": 92,
+        "y": 580,
+        "w": 192,
+        "h": 34
+      },
+      "mean_error": 20.8,
+      "area": 4771
+    },
+    {
+      "bounding_box": {
+        "x": 572,
+        "y": 404,
+        "w": 35,
+        "h": 39
+      },
+      "mean_error": 17.45,
+      "area": 995
+    },
+    {
+      "bounding_box": {
+        "x": 892,
+        "y": 404,
+        "w": 24,
+        "h": 32
+      },
+      "mean_error": 16.02,
+      "area": 624
+    },
+    {
+      "bounding_box": {
+        "x": 540,
+        "y": 60,
+        "w": 16,
+        "h": 24
+      },
+      "mean_error": 14.46,
+      "area": 317
+    },
+    {
+      "bounding_box": {
+        "x": 525,
+        "y": 92,
+        "w": 15,
+        "h": 16
+      },
+      "mean_error": 14.45,
+      "area": 205
+    },
+    {
+      "bounding_box": {
+        "x": 637,
+        "y": 1218,
+        "w": 19,
+        "h": 15
+      },
+      "mean_error": 9.27,
+      "area": 164
+    }
+  ],
+  "tamper_pixel_ratio": 0.050934,
+  "document_dimensions": [
+    1200,
+    1600
+  ],
+  "analysis_details": {
+    "visualization_path": "/Users/chalkdigital/Desktop/document-forensics/demo_output/tampered_document_ela_visualization.png",
+    "source_file": "/Users/chalkdigital/Desktop/document-forensics/demo_output/tampered_document.jpg",
+    "analysis_time_seconds": 0.385,
+    "parameters": {
+      "ela_quality": 90,
+      "ela_scale": 15,
+      "ela_threshold": 40,
+      "min_area": 150,
+      "dilation_kernel": 5,
+      "dilation_iters": 2
+    }
+  }
+}
