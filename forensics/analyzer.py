@@ -31,6 +31,7 @@ from forensics.ela_analysis import (
     detect_ela_regions,
     save_ela_visualization,
 )
+from forensics.font_analysis import analyze_font_baseline_consistency
 
 logger = logging.getLogger(__name__)
 
@@ -157,9 +158,31 @@ class DocumentForensicsAnalyzer:
                 )
 
         # ------------------------------------------------------------------
-        # Step 4: Confidence Scoring (Tamper Pixel Density)
+        # Step 4: Font & Baseline Consistency Analysis
         # ------------------------------------------------------------------
-        logger.info("▶ Step 4: Confidence & Tamper Density Scoring")
+        logger.info("▶ Step 4: Font & Baseline Consistency Analysis")
+        font_anomalies = analyze_font_baseline_consistency(str(image_path))
+        if font_anomalies:
+            logger.info("  Found %d font/baseline alignment anomalies", len(font_anomalies))
+            result.font_anomalies = [
+                {
+                    "bounding_box": a.bounding_box.to_list(),
+                    "baseline_dev": a.baseline_dev,
+                    "height_dev": a.height_dev,
+                    "description": a.description,
+                }
+                for a in font_anomalies
+            ]
+            # Add font anomaly bounding boxes if not already captured
+            for fa in font_anomalies:
+                bb_list = fa.bounding_box.to_list()
+                if bb_list not in result.bounding_boxes:
+                    result.bounding_boxes.append(bb_list)
+
+        # ------------------------------------------------------------------
+        # Step 5: Ensemble Confidence & Severity Scoring
+        # ------------------------------------------------------------------
+        logger.info("▶ Step 5: Ensemble Confidence & Severity Scoring")
         h, w = original.shape[:2]
         result.document_dimensions = [w, h]
         total_pixels = w * h

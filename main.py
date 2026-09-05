@@ -60,6 +60,11 @@ Examples:
         metavar="DIR",
         help="Directory of images to batch-analyze",
     )
+    parser.add_argument(
+        "--demo",
+        action="store_true",
+        help="Generate synthetic demo files and run complete demo test pipeline",
+    )
 
     # ELA parameters
     params = parser.add_argument_group("ELA Parameters")
@@ -168,8 +173,13 @@ def main():
     args = parse_args()
     setup_logging(args.verbose)
 
+    if args.demo:
+        from demo import run_demo
+        run_demo()
+        return
+
     if not args.image and not args.batch:
-        print("Error: Provide an image path or --batch directory", file=sys.stderr)
+        print("Error: Provide an image path, --batch directory, or --demo flag", file=sys.stderr)
         sys.exit(1)
 
     # Run analysis

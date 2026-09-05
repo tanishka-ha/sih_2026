@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Document Forensics Analyzer
 
 Detects visual pixel tampering and digital header manipulation in scanned document images. Built as **Role 3 (Tampering & Image Forensics)** for a Scholarship Document Verification System.
@@ -83,7 +82,3 @@ if result["tampering_detected"]:
 | Role 4 (Backend) | Calls `analyze_document_forensics()` → gets JSON dict |
 | Role 5 (Frontend) | Uses `bounding_boxes` `[x,y,w,h]` to draw red overlays |
 | Role 6 (Test Data) | Provides sample JPEG documents for testing |
-=======
-# sih_2026
-Explainable AI-powered scholarship application verification that analyzes document bundles, cross-checks information across documents, detects potential tampering, and prioritizes cases for human review — without automatically rejecting applicants.
->>>>>>> 56a8567efdf8aa1daecc63fdfb875cedcde56f2b

@@ -1,0 +1,39 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run main.py with Tampered Document",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/main.py",
+      "args": [
+        "${workspaceFolder}/demo_output/tampered_document.jpg",
+        "--save-viz",
+        "--output",
+        "${workspaceFolder}/results.json"
+      ],
+      "console": "integratedTerminal",
+      "python": "${workspaceFolder}/venv/bin/python"
+    },
+    {
+      "name": "Run main.py with Clean Document",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/main.py",
+      "args": [
+        "${workspaceFolder}/demo_output/clean_document.jpg",
+        "--save-viz"
+      ],
+      "console": "integratedTerminal",
+      "python": "${workspaceFolder}/venv/bin/python"
+    },
+    {
+      "name": "Run Full Demo (demo.py)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/demo.py",
+      "console": "integratedTerminal",
+      "python": "${workspaceFolder}/venv/bin/python"
+    }
+  ]
+}

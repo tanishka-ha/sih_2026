@@ -84,12 +84,6 @@
       1218,
       19,
       15
-    ],
-    [
-      386,
-      538,
-      15,
-      16
     ]
   ],
   "severity": "high",
@@ -237,19 +231,6 @@
       "area": 164
     }
   ],
-  "font_anomalies": [
-    {
-      "bounding_box": [
-        386,
-        538,
-        15,
-        16
-      ],
-      "baseline_dev": 4.0,
-      "height_dev": 7.0,
-      "description": "Font/Baseline offset: baseline_dev=4.0px, height_dev=7.0px"
-    }
-  ],
   "tamper_pixel_ratio": 0.050934,
   "document_dimensions": [
     1200,
@@ -258,7 +239,7 @@
   "analysis_details": {
     "visualization_path": "/Users/chalkdigital/Desktop/document-forensics/demo_output/tampered_document_ela_visualization.png",
     "source_file": "/Users/chalkdigital/Desktop/document-forensics/demo_output/tampered_document.jpg",
-    "analysis_time_seconds": 0.226,
+    "analysis_time_seconds": 0.202,
     "parameters": {
       "ela_quality": 90,
       "ela_scale": 15,

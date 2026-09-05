@@ -92,6 +92,7 @@ class ForensicsResult:
     confidence: float = 0.0
     exif_flags: List[EXIFFlag] = field(default_factory=list)
     ela_regions: List[ELARegion] = field(default_factory=list)
+    font_anomalies: List[dict] = field(default_factory=list)
     tamper_pixel_ratio: float = 0.0
     document_dimensions: List[int] = field(default_factory=lambda: [0, 0])
     analysis_details: dict = field(default_factory=dict)
