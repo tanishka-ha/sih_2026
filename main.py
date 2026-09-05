@@ -65,6 +65,11 @@ Examples:
         action="store_true",
         help="Generate synthetic demo files and run complete demo test pipeline",
     )
+    parser.add_argument(
+        "--dataset",
+        metavar="DIR",
+        help="Scan a dataset of application bundles (each subfolder = one applicant)",
+    )
 
     # ELA parameters
     params = parser.add_argument_group("ELA Parameters")
@@ -169,6 +174,87 @@ def analyze_directory(args: argparse.Namespace) -> dict:
     }
 
 
+def analyze_dataset(args: argparse.Namespace) -> dict:
+    """Scan a full dataset of application bundles with clean summary output."""
+    import time
+
+    dataset_dir = Path(args.dataset)
+    if not dataset_dir.is_dir():
+        print(f"Error: {dataset_dir} is not a directory", file=sys.stderr)
+        sys.exit(1)
+
+    app_dirs = sorted([d for d in dataset_dir.iterdir() if d.is_dir()])
+    if not app_dirs:
+        print(f"Error: No application folders found in {dataset_dir}", file=sys.stderr)
+        sys.exit(1)
+
+    extensions = {".jpg", ".jpeg", ".png", ".tiff", ".tif", ".bmp", ".webp"}
+    analyzer = DocumentForensicsAnalyzer(
+        ela_quality=args.quality,
+        ela_scale=args.scale,
+        ela_threshold=args.threshold,
+        min_area=args.min_area,
+        save_visualizations=args.save_viz,
+    )
+
+    all_results = {}
+    total_docs = 0
+    start = time.time()
+
+    # Print header
+    print()
+    print("\033[1m" + "=" * 90 + "\033[0m")
+    print("\033[1m  DOCUMENT FORENSICS — DATASET ANALYSIS REPORT\033[0m")
+    print("\033[1m" + "=" * 90 + "\033[0m")
+    print(f"  Dataset: {dataset_dir.resolve()}")
+    print(f"  Applications: {len(app_dirs)}")
+    print("\033[1m" + "-" * 90 + "\033[0m")
+    print(f"  {'Application':<17} {'Document':<30} {'Status':<10} {'Severity':<10} {'Conf':<8} {'ELA':<6} {'Font':<6}")
+    print("\033[1m" + "-" * 90 + "\033[0m")
+
+    for app_dir in app_dirs:
+        # Only scan original document images, skip visualization PNGs
+        images = sorted([
+            f for f in app_dir.iterdir()
+            if f.suffix.lower() in extensions
+            and f.is_file()
+            and "_ela_visualization" not in f.name
+        ])
+
+        if not images:
+            continue
+
+        app_results = {}
+        for img in images:
+            try:
+                result = analyzer.analyze(img, app_dir if args.save_viz else None)
+                r = result.to_dict()
+                tampered = r["tampering_detected"]
+                status = "\033[91m🔴 YES\033[0m" if tampered else "\033[92m🟢 NO\033[0m"
+                sev = r["severity"].upper()
+                conf = f"{r['confidence']:.4f}"
+                ela = len(r["ela_regions"])
+                font = len(r["font_anomalies"])
+                print(f"  {app_dir.name:<17} {img.name:<30} {status:<19} {sev:<10} {conf:<8} {ela:<6} {font:<6}")
+                app_results[img.name] = r
+                total_docs += 1
+            except Exception as e:
+                print(f"  {app_dir.name:<17} {img.name:<30} \033[91m❌ ERROR\033[0m")
+                app_results[img.name] = {"error": str(e)}
+                total_docs += 1
+
+        all_results[app_dir.name] = app_results
+
+    elapsed = time.time() - start
+
+    # Print footer
+    print("\033[1m" + "-" * 90 + "\033[0m")
+    print(f"  ✅ Complete: {len(app_dirs)} applications, {total_docs} documents in {elapsed:.1f}s")
+    print("\033[1m" + "=" * 90 + "\033[0m")
+
+    return all_results
+
+
 def main():
     args = parse_args()
     setup_logging(args.verbose)
@@ -178,8 +264,16 @@ def main():
         run_demo()
         return
 
+    if args.dataset:
+        results = analyze_dataset(args)
+        json_output = json.dumps(results, indent=2)
+        output_path = Path(args.output) if args.output else Path("dataset_results.json")
+        output_path.write_text(json_output)
+        print(f"  Full JSON saved to: {output_path}")
+        return
+
     if not args.image and not args.batch:
-        print("Error: Provide an image path, --batch directory, or --demo flag", file=sys.stderr)
+        print("Error: Provide an image path, --batch directory, --dataset directory, or --demo flag", file=sys.stderr)
         sys.exit(1)
 
     # Run analysis
