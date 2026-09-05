@@ -258,7 +258,7 @@
   "analysis_details": {
     "visualization_path": "/Users/chalkdigital/Desktop/document-forensics/demo_output/tampered_document_ela_visualization.png",
     "source_file": "/Users/chalkdigital/Desktop/document-forensics/demo_output/tampered_document.jpg",
-    "analysis_time_seconds": 0.226,
+    "analysis_time_seconds": 0.2,
     "parameters": {
       "ela_quality": 90,
       "ela_scale": 15,
