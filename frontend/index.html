@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b1020" />
+  <title>Verity · ScholarGuard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="ambient ambient-a"></div>
+  <div class="ambient ambient-b"></div>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark"><span>V</span></div>
+        <div>
+          <div class="brand-name">VERITY</div>
+          <div class="brand-sub">ScholarGuard console</div>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Primary navigation">
+        <button class="nav-item active" data-view="queue"><span class="nav-icon">◈</span><span>Review queue</span><em id="navOpenCount">4</em></button>
+        <button class="nav-item" data-view="detail"><span class="nav-icon">◫</span><span>Application</span></button>
+        <button class="nav-item" data-view="cross"><span class="nav-icon">⇄</span><span>Across applications</span><em>1</em></button>
+        <button class="nav-item" data-view="evidence"><span class="nav-icon">◇</span><span>Evidence map</span></button>
+        <button class="nav-item" data-view="documents"><span class="nav-icon">▤</span><span>Documents</span></button>
+        <button class="nav-item" data-view="audit"><span class="nav-icon">◷</span><span>Audit trail</span></button>
+        <button class="nav-item" data-view="metrics"><span class="nav-icon">↗</span><span>Performance</span></button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="integrity-card">
+          <div class="eyebrow">GOVERNANCE</div>
+          <div class="integrity-row"><span class="status-dot green"></span><span>Human decision required</span></div>
+          <div class="integrity-row"><span class="status-dot blue"></span><span>Printed English scope</span></div>
+          <div class="integrity-row"><span class="status-dot gray"></span><span>Temporary file retention</span></div>
+          <div class="integrity-row"><span class="status-dot gray"></span><span>No authenticity claim</span></div>
+        </div>
+        <div class="profile-card">
+          <div class="avatar">RK</div>
+          <div><strong>Reviewer</strong><span>Institute Nodal Officer</span></div>
+          <button class="icon-button" id="settingsBtn" title="Settings">⚙</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="mobile-menu icon-button" id="mobileMenu">☰</button>
+          <div>
+            <div class="eyebrow">SCHOLARSHIP VERIFICATION · SIH 26188</div>
+            <h1 id="pageTitle">Review queue</h1>
+            <p class="sub" id="pageSub">Ranked evidence for a human reviewer — never an automatic rejection.</p>
+          </div>
+        </div>
+        <div class="top-actions">
+          <div class="status-pill"><span class="status-dot green"></span>Verification engine ready</div>
+          <button class="icon-button" id="themeToggle" title="Toggle theme">☾</button>
+          <button class="secondary" id="helpBtn">How it works</button>
+          <button class="primary" id="newApplication">+ New application</button>
+        </div>
+      </header>
+
+      <section class="view active-view" id="queue-view">
+        <div class="hero-strip">
+          <div class="hero-copy">
+            <span class="hero-kicker">BUILT FOR THE REVIEW DESK</span>
+            <h2>See <strong>why</strong> a case needs you — not just a score.</h2>
+            <p>Review the evidence behind every flag — across documents, fields and forensic signals.</p>
+          </div>
+          <div class="hero-orbit">
+            <div class="orbit-core">V</div>
+            <div class="orbit-chip chip-a">OCR</div>
+            <div class="orbit-chip chip-b">RULES</div>
+            <div class="orbit-chip chip-c">FORENSICS</div>
+            <div class="orbit-chip chip-d">EVIDENCE</div>
+          </div>
+        </div>
+
+        <div class="queue-summary" id="queueCounts"></div>
+
+        <div class="panel queue-panel">
+          <div class="panel-head queue-head">
+            <div>
+              <div class="section-eyebrow">WORKLIST</div>
+              <h2>Today's review queue</h2>
+              <span>Jaipur district · post-matric scholarship</span>
+            </div>
+            <div class="filters" id="queueFilters" aria-label="Filter review queue">
+              <button class="on filter-all" data-filter="all">All</button>
+              <button class="filter-high" data-filter="high">High</button>
+              <button class="filter-medium" data-filter="medium">Medium</button>
+              <button class="filter-clear" data-filter="clear">Clear</button>
+              <button class="filter-unreadable" data-filter="unreadable">Re-upload</button>
+            </div>
+          </div>
+          <div class="queue-table-head"><span>Severity</span><span>Applicant</span><span>Evidence / reason</span><span>Review state</span><span></span></div>
+          <div class="queue-rows" id="queueRows"></div>
+        </div>
+      </section>
+
+      <section class="view" id="detail-view">
+        <div class="detail-hero" id="detailHero"></div>
+        <div class="application-grid">
+          <section class="panel bundle-panel">
+            <div class="panel-head compact"><div><div class="section-eyebrow">SOURCE BUNDLE</div><h2>Submitted documents</h2><span>Everything is reviewed together</span></div><span class="small-chip" id="docCountChip">5 files</span></div>
+            <div id="docList" class="doc-list"></div>
+            <div class="micro-note"><span class="note-icon">✦</span><div><strong>Bundle-first verification</strong><p>Relationships are compared across the application instead of treating each file as an isolated object.</p></div></div>
+          </section>
+
+          <section class="panel viewer-panel">
+            <div class="panel-head compact">
+              <div><div class="section-eyebrow">DOCUMENT VIEWER</div><h2 id="viewerTitle">Income Certificate</h2><span id="viewerMeta"></span></div>
+              <div class="viewer-tools"><button class="ghost" id="fitBtn">Fit</button><button class="ghost" id="zoomBtn">100%</button></div>
+            </div>
+            <div class="document-canvas" id="documentCanvas"></div>
+            <div class="viewer-footer"><span>Normalized evidence coordinates · page 1 of 1</span><span class="viewer-legend"><i class="legend-red"></i> flagged region <i class="legend-blue"></i> source field</span></div>
+          </section>
+
+          <section class="panel flags-panel">
+            <div class="panel-head compact"><div><div class="section-eyebrow">EXPLAINABLE FINDINGS</div><h2>Why this case sits here</h2><span>Severity → reason → evidence → next action</span></div><span class="count-pill" id="flagCount">0</span></div>
+            <div class="flag-list" id="flagList"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" id="cross-view">
+        <div class="section-title"><div><div class="section-eyebrow">CROSS-APPLICATION INTELLIGENCE</div><h2>One certificate. Two applicants.</h2><p>A duplicate certificate ID becomes visible only when the system compares cases across review boundaries.</p></div><span class="badge high">NEEDS REVIEW</span></div>
+        <div class="cross-banner"><div class="cross-number">01</div><div><b>Exact ledger match</b><span>INC-7842-2024 appears in two separate applications.</span></div><div class="cross-value">INC-7842-2024</div></div>
+        <div class="cross-pair" id="crossPair"></div>
+        <div class="cross-lower">
+          <div class="panel"><div class="panel-head compact"><div><div class="section-eyebrow">FIELD-BY-FIELD</div><h2>Comparison</h2><span>Certificate details identical · applicants different</span></div></div><div class="cross-table" id="crossTable"></div></div>
+          <div class="panel cross-note"><div class="panel-head compact"><div><div class="section-eyebrow">WHY THIS MATTERS</div><h2>The missing vantage point</h2></div></div><p>The match itself is simple. The difficult part is creating a reliable cross-application view from noisy scanned evidence.</p><div class="vantage-steps"><div><b>1</b><span>Extract</span></div><div><b>2</b><span>Normalize</span></div><div><b>3</b><span>Compare</span></div><div><b>4</b><span>Explain</span></div></div><div class="note-callout">The system flags the relationship; it does not declare the document fake.</div></div>
+        </div>
+      </section>
+
+      <section class="view" id="evidence-view">
+        <div class="section-title"><div><div class="section-eyebrow">RELATIONSHIP INTELLIGENCE</div><h2>Evidence map</h2><p>See how extracted fields agree — or fail to — across the submitted bundle.</p></div><div class="toolbar-chip"><span class="status-dot blue"></span>12 consistency links</div></div>
+        <div class="evidence-layout">
+          <div class="panel graph-panel"><div class="graph-wrap" id="graphWrap">
+            <svg class="connections" viewBox="0 0 900 560" preserveAspectRatio="none" aria-hidden="true"><path d="M450 85 L225 190"/><path d="M450 85 L675 190"/><path d="M225 230 L225 350"/><path d="M675 230 L675 350"/><path d="M225 390 L450 475"/><path d="M675 390 L450 475"/><path d="M450 85 L450 475"/></svg>
+            <div class="node applicant"><b>Priya Sharma</b><span>reconstructed identity</span></div>
+            <div class="node doc n1"><b>Marksheet</b><span>DOB · name</span></div>
+            <div class="node doc n2"><b>Income Certificate</b><span>Name · income · ID</span></div>
+            <div class="node doc n3"><b>ID Proof</b><span>Name · DOB</span></div>
+            <div class="node doc n4"><b>Category Certificate</b><span>Name · parent</span></div>
+            <div class="node doc n5"><b>Bank Proof</b><span>Name · account</span></div>
+            <div class="link-tag l1">98% match</div><div class="link-tag l2 warn">92% name</div><div class="link-tag l3">DOB aligned</div><div class="link-tag l4 danger">income conflict</div>
+          </div></div>
+          <div class="panel evidence-side">
+            <div class="panel-head compact"><div><div class="section-eyebrow">SELECTED RELATIONSHIP</div><h2>Income consistency</h2><span>Deterministic comparison</span></div><span class="badge high">HIGH</span></div>
+            <div class="evidence-card danger-card"><div class="evidence-title"><span class="e-icon">!</span><div><b>Declared income does not match the certificate</b><span>Rule result · no interpretation</span></div></div><div class="compare"><div><small>Application form</small><strong>₹30,000</strong></div><div class="arrow">→</div><div><small>Income Certificate</small><strong>₹90,000</strong></div></div><div class="reason"><b>Why flagged</b><p>The same applicant's figures disagree. The reviewer sees both values and the source document behind each.</p></div></div>
+            <div class="evidence-card"><div class="evidence-title"><span class="e-icon neutral">≈</span><div><b>Name variation</b><span>Likely reading / typographical issue</span></div></div><div class="compare"><div><small>Marksheet</small><strong>Priya Sharma</strong></div><div class="arrow">↔</div><div><small>Category Certificate</small><strong>Priya Sharna</strong></div></div><div class="similarity"><span>Similarity</span><b>92%</b><div class="bar"><i style="width:92%"></i></div></div></div>
+            <div class="evidence-card signal-card"><div class="evidence-title"><span class="e-icon neutral">◎</span><div><b>Forensic signals</b><span>Combined before a review flag is surfaced</span></div></div><div class="signal-grid"><span class="signal good">ELA ✓</span><span class="signal good">EXIF ✓</span><span class="signal warn">Font alignment ⚠</span><span class="signal good">Copy-move ✓</span></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="documents-view">
+        <div class="section-title"><div><div class="section-eyebrow">SOURCE MATERIAL</div><h2>Documents</h2><p>Inspect the evidence exactly where the reviewer needs it.</p></div><span class="toolbar-chip">PII masked in stored identifiers</span></div>
+        <div class="doc-grid" id="docGrid"></div>
+      </section>
+
+      <section class="view" id="audit-view">
+        <div class="section-title"><div><div class="section-eyebrow">ACCOUNTABILITY</div><h2>Audit trail</h2><p>Every reviewer action is recorded as a hash-linked event. Document content is not stored in the ledger.</p></div><button class="secondary" id="clearAudit">Reset demo log</button></div>
+        <div class="audit-top"><div class="audit-chain"><span class="chain-icon">⌁</span><div><b>SHA-256 chained events</b><span>hashes only · no document content</span></div></div><div class="audit-stat"><b id="auditCount">0</b><span>events recorded</span></div></div>
+        <div class="panel audit-panel"><div id="auditList"></div></div>
+      </section>
+
+      <section class="view" id="metrics-view">
+        <div class="section-title"><div><div class="section-eyebrow">MEASURED VALIDATION</div><h2>Performance</h2><p>Only measured figures are shown; demo claims remain separate from production benchmarks.</p></div><span class="toolbar-chip"><span class="status-dot green"></span>Ground truth evaluated</span></div>
+        <div class="metric-grid">
+          <div class="metric-card metric-feature"><span>Field-exact extraction</span><b>92.9%</b><small>522 / 562 fields · 120 documents</small><div class="metric-bar"><i style="width:92.9%"></i></div></div>
+          <div class="metric-card"><span>Normal scans</span><b>93.1%</b><small>field-exact extraction</small><div class="metric-bar"><i style="width:93.1%"></i></div></div>
+          <div class="metric-card"><span>Low-resolution</span><b>94.1%</b><small>field-exact extraction</small><div class="metric-bar"><i style="width:94.1%"></i></div></div>
+          <div class="metric-card"><span>Blurred scans</span><b>91.2%</b><small>field-exact extraction</small><div class="metric-bar"><i style="width:91.2%"></i></div></div>
+          <div class="metric-card"><span>Rotated scans</span><b>90.6%</b><small>field-exact extraction</small><div class="metric-bar"><i style="width:90.6%"></i></div></div>
+          <div class="metric-card"><span>Runtime target</span><b>Seconds / page</b><small>standard local CPU stack</small><div class="metric-foot">No GPU required</div></div>
+        </div>
+        <div class="panel evaluation-panel"><div class="panel-head compact"><div><div class="section-eyebrow">EVALUATION PLAN</div><h2>Controlled corpus → measurable outputs</h2><span>Designed to keep the demo honest and reproducible.</span></div></div><div class="eval-grid"><div><b>Clean bundles</b><span>Known-good applications</span></div><div><b>Injected defects</b><span>Typos · expiry · duplicates · blur · edits</span></div><div><b>Metrics</b><span>Precision · Recall · F1 · IoU</span></div><div><b>Human review</b><span>Time saved + false-positive analysis</span></div></div></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="decisionModal" aria-hidden="true">
+    <div class="modal modal-wide">
+      <button class="modal-close" data-close="decisionModal">×</button>
+      <div class="section-eyebrow">HUMAN-IN-THE-LOOP</div>
+      <h2>Record review decision</h2>
+      <p class="modal-sub">ScholarGuard surfaces evidence. The reviewer decides. No automatic rejection is available.</p>
+      <div id="decisionSummary" class="decision-summary"></div>
+      <div class="decision-actions">
+        <button class="decision-btn" data-outcome="cleared"><span>✓</span><div><b>Mark as cleared</b><small>No blocking issue after human review</small></div></button>
+        <button class="decision-btn" data-outcome="correction"><span>↺</span><div><b>Request correction</b><small>Ask applicant for a cleaner / corrected submission</small></div></button>
+        <button class="decision-btn danger" data-outcome="escalated"><span>↑</span><div><b>Escalate for verification</b><small>Send the case to the next reviewer or authority</small></div></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="newAppModal" aria-hidden="true">
+    <div class="modal">
+      <button class="modal-close" data-close="newAppModal">×</button>
+      <div class="section-eyebrow">DEMO INGESTION</div>
+      <h2>Start a new application</h2>
+      <p class="modal-sub">Select a bundle to preview it locally. No verification result is claimed until the connected verification API returns one.</p>
+      <div class="dropzone" id="dropzone">
+        <input id="applicationFiles" type="file" accept=".pdf,.png,.jpg,.jpeg,application/pdf,image/png,image/jpeg" multiple hidden />
+        <div class="drop-icon">⇪</div><b>Drop PDF or images here</b><span>Accepted: PDF · PNG · JPEG</span>
+        <button class="secondary upload-select" id="chooseFiles" type="button">Choose documents</button>
+        <small id="uploadHint">Files stay in this browser until the verification API is connected.</small>
+      </div>
+      <div id="selectedFiles" class="selected-files" aria-live="polite"></div>
+      <button class="primary wide" id="runUpload" disabled>Upload bundle</button>
+      <button class="secondary wide demo-fallback" id="loadDemoCase">Use demo bundle instead</button>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="helpModal" aria-hidden="true">
+    <div class="modal modal-wide">
+      <button class="modal-close" data-close="helpModal">×</button>
+      <div class="section-eyebrow">HOW SCHOLARGUARD WORKS</div>
+      <h2>From scan → evidence → human decision</h2>
+      <div class="pipeline">
+        <div><b>01</b><strong>Upload</strong><span>PDF / image bundle</span></div>
+        <div><b>02</b><strong>Rasterise</strong><span>300 DPI page image</span></div>
+        <div><b>03</b><strong>Read</strong><span>Deskew + OCR + fields</span></div>
+        <div><b>04</b><strong>Check</strong><span>Rules + cross-document</span></div>
+        <div><b>05</b><strong>Investigate</strong><span>Forensic signals</span></div>
+        <div><b>06</b><strong>Decide</strong><span>Reviewer action</span></div>
+      </div>
+      <div class="disclaimer"><b>Important:</b> format validation and forensic signals identify evidence that needs inspection. They do not independently prove that a document is genuine or fake.</div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
